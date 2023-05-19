@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Search</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <ul>
+        <li><a href="index.html">home</a></li>
+        <li><a href="image_search.html">images</a></li>
+    </ul>
+    <form action="https://www.google.com/search">
+        <label for="all-words">Find pages with… "all these words:"</label>
+        <input type="text" name="as_q" id="all-words"><br>
+      
+        <label for="exact-phrase">Find pages with… "this exact word or phrase:"</label>
+        <input type="text" name="as_epq" id="exact-phrase"><br>
+      
+        <label for="any-words">Find pages with… "any of these words:"</label>
+        <input type="text" name="as_oq" id="any-words"><br>
+      
+        <label for="none-words">Find pages with… "none of these words:"</label>
+        <input type="text" name="as_eq" id="none-words"><br>
+      
+        <input type="submit" value="Search">
+      </form>
+      
+</body>
+
+</html>

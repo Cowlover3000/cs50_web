@@ -1,0 +1,32 @@
+{% extends "auctions/layout.html" %}
+{% load form_tags %}
+
+{% block body %}
+  <div class="container">
+    <h1 class="mb-4">Nieuwe Listing</h1>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.title.id_for_label }}">Titel</label>
+        {{ form.title|add_class:"form-control" }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.description.id_for_label }}">Omschrijving</label>
+        {{ form.description|add_class:"form-control" }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.price.id_for_label }}">Prijs</label>
+        {{ form.price|add_class:"form-control" }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.category.id_for_label }}">Categorie</label>
+        {{ form.category|add_class:"form-control" }}
+      </div>
+      <div class="form-group">
+        <label for="{{ form.image_url.id_for_label }}">Afbeelding URL</label>
+        {{ form.image_url|add_class:"form-control" }}
+      </div>
+      <button type="submit" class="btn btn-primary">Opslaan</button>
+    </form>
+  </div>
+{% endblock %}

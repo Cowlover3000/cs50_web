@@ -1,0 +1,31 @@
+body {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+  /* Center the form on the page */
+  form {
+    margin: 0 auto;
+    width: 500px;
+  }
+  /* Style the search box */
+  input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+  }
+  /* Style the "Advanced Search" button */
+  input[type="submit"] {
+    background-color: #4285f4;
+    color: #fff;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  /* Style the labels */
+  label {
+    display: block;
+    margin-top: 12px;
+  }

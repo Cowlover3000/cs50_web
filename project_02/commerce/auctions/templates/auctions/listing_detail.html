@@ -1,0 +1,85 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+<div class="container">
+  <h1 class="mt-4 mb-3">{{ listing.title }}</h1>
+  <div class="card">
+    {% if listing.image_url %}
+    <img src="{{ listing.image_url }}" class="card-img-top" alt="Listing Image">
+    {% else %}
+    <div class="card-img-top bg-light text-center py-5">
+      <i class="fas fa-image fa-4x text-muted"></i>
+    </div>
+    {% endif %}
+    <div class="card-body">
+      <h5 class="card-title">{{ listing.title }}</h5>
+      <p class="card-text">Price: {{ listing.price }}</p>
+      <p class="card-text">{{ listing.description }}</p>
+      <p class="card-text">Category: {{ listing.category }}</p>
+      <p class="card-text">Status: {{ listing.status }}</p>
+
+      {% if winner %}
+      <div class="alert alert-success" role="alert">
+        Congratulations! You have won this listing.
+      </div>
+      {% endif %}
+
+      {% if listing.creator == request.user %}
+      <a href="{% url 'close_listing' listing_id=listing.id %}" class="btn btn-danger">Close Listing</a>
+      {% endif %}
+      {% if user.is_authenticated %}
+      {% if listing in user.watchlist.listings.all %}
+      <a href="{% url 'remove_from_watchlist' listing_id=listing.id %}" class="btn btn-primary">Remove from
+        Watchlist</a>
+      {% else %}
+      <a href="{% url 'add_to_watchlist' listing_id=listing.id %}" class="btn btn-primary">Add to Watchlist</a>
+      {% endif %}
+      {% endif %}
+
+      {% if user.is_authenticated %}
+      <form method="post" action="{% url 'bid_listing' listing_id=listing.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="bid_amount">Bid Amount:</label>
+          <input type="number" name="bid_amount" id="bid_amount" class="form-control" step="0.01"
+            min="{{ listing.price }}">
+        </div>
+        <button type="submit" class="btn btn-primary">Place Bid</button>
+      </form>
+      {% endif %}
+
+      <!-- Meldingen weergeven -->
+      {% for message in messages %}
+      <div class="alert alert-success mt-4">
+        {{ message }}
+      </div>
+      {% endfor %}
+
+      <!-- Voeg hier eventueel andere informatie toe over de listing -->
+      <form method="POST" action="{% url 'add_comment' listing.id %}">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="comment_text">Add a Comment:</label>
+          <textarea class="form-control" id="comment_text" name="comment_text" rows="3"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Post Comment</button>
+      </form>
+      <div class="comments-section">
+        <h3>Comments</h3>
+        {% if comments %}
+        <ul class="comment-list">
+          {% for comment in comments %}
+          <li class="comment-item">
+            <p class="comment-text">{{ comment.text }}</p>
+            <p class="comment-info">Posted by {{ comment.user.username }} on {{ comment.created_at }}</p>
+          </li>
+          {% endfor %}
+        </ul>
+        {% else %}
+        <p>No comments yet.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
